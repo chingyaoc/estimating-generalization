@@ -61,6 +61,8 @@ def train(model, model2, dataloader_source, dataloader_target, max_epoch, lam):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Estimate proxy risk with domain-invariant check model')
+    parser.add_argument('--model_path', default=None, type=str, help='Path to the candidate model')
+    parser.add_argument('--check_model_path', default=None, type=str, help='Path to the pretrained check model')
     parser.add_argument('--batch_size', default=128, type=int, help='Number of images in each mini-batch')
     parser.add_argument('--nepoch', default=20, type=int, help='Number of sweeps over the dataset to train')
     parser.add_argument('--eps', default=0.14, type=int, help='Parameter for domain-invariant constrain')
@@ -68,8 +70,8 @@ if __name__ == '__main__':
 
     # args parse
     args = parser.parse_args()
-    batch_size, nepoch = args.batch_size, args.nepoch
-    eps, lam = args.eps, args.lam
+    model_path, check_model_path = args.model_path, args.check_model_path
+    batch_size, nepoch, eps, lam = args.batch_size, args.nepoch, args.eps, args.lam
 
     # MNIST
     dataset_source = datasets.MNIST(root='dataset/mnist', train=True, transform=img_transform_source, download=True)
@@ -87,7 +89,7 @@ if __name__ == '__main__':
     dataloader_target_test = DataLoader(dataset=dataset_target_test, batch_size=batch_size, shuffle= False, num_workers=2)
 
     # any candidate model 
-    model = torch.load('checkpoints/model_source.pth').cuda()
+    model = torch.load(model_path).cuda()
     acc_t = test(model, dataloader_target_test)
     print('True target risk: %4f' % (1 - acc_t))
 
