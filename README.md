@@ -63,14 +63,20 @@ Estimate proxy risk:
 python proxy_risk.py --model_path checkpoints/model_source.pth --check_model_path checkpoints/model_check.pth
 ```
 
+## Citation
 
-## Embedding Complexity Tradeoff
-<p align='center'>
-<img src='https://github.com/chingyaoc/estimating-generalization/blob/master/misc/fig2.png?raw=true' width='800'/>
-</p>
+If you find this repo useful for your research, please consider citing the paper
 
-Train DANN with designated number of layers in the encoder
 ```
-python pretrain.py --g_num = 2
+@article{chuang2020estimating,
+  title={Estimating Generalization under Distribution Shifts via Domain-Invariant Representations},
+  author={Chuang, Ching-Yao and Torralba, Antonio and Jegelka, Stefanie},
+  journal={International conference on machine learning},
+  year={2020}
+}
 ```
+For any questions, please contact Ching-Yao Chuang (cychuang@mit.edu).
 
+## Acknowledgements
+
+Part of this code is inspired by [fungtion/DANN](https://github.com/fungtion/DANN).
